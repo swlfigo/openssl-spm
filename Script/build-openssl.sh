@@ -159,17 +159,17 @@ do
   USED_LIBS+=("$file")
 done
 echo "[*] merging static libs..."
-libtool -static -o "ssl.a" "${USED_LIBS[@]}"
-file ssl.a
+libtool -static -o "libssl.a" "${USED_LIBS[@]}"
+file libssl.a
 rm -rf "${USED_LIBS[@]}" || true
 popd > /dev/null
 popd > /dev/null
 
 # generate module map located at $BUILT_PRODUCTS_DIR/include/openssl/module.modulemap
-pushd "$INSTALL_PREFIX/include/openssl" > /dev/null
+pushd "$INSTALL_PREFIX/include" > /dev/null
 echo "[*] generating module map..."
 HEADER_FILE_LIST=();
-for file in $(find . -type f);
+for file in $(find openssl -type f);
 do
   if grep -q "This file is obsolete; please update your software." "$file"; then
     rm "$file"
