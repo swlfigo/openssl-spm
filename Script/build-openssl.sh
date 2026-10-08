@@ -159,9 +159,10 @@ do
   USED_LIBS+=("$file")
 done
 echo "[*] merging static libs..."
-libtool -static -o "libssl.a" "${USED_LIBS[@]}"
-file libssl.a
+libtool -static -o "libssl.combined.a" "${USED_LIBS[@]}"
+file libssl.combined.a
 rm -rf "${USED_LIBS[@]}" || true
+mv libssl.combined.a libssl.a
 popd > /dev/null
 popd > /dev/null
 
